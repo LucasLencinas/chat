@@ -8,11 +8,13 @@
     <title>Bootstrap 101 Template</title>
 
     <!-- Bootstrap -->
-    <link href="libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheets/index.css" type="text/css" >
+    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+    
   </head>
   <body>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
+        <div class="container" id="container-principal">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
@@ -34,11 +36,107 @@
         </div>
         <!-- /.container -->
     </nav>
-    <div>
-      <h1>Hello, world!</h1>
+    <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+              <h3>Main Room</h3>
+          </div>
+      </div>
+      <div class="row" id="principalRow">
+        <div class="col-md-4 principalDivElements">
+            <div class="panel panel-success principalPanels">
+              <div class="panel-heading">Participantes</div>
+              <div class="panel-body">
+                <div class="media">
+                  <div class="media-left">
+                    <a href="#">
+                      <img class="media-object" src="..." alt="...">
+                    </a>
+                  </div>
+                  <div class="media-body">
+                    <p>Colo</p>
+                  </div>
+                </div>
+                <div class="media">
+                  <div class="media-left">
+                    <a href="#">
+                      <img class="media-object" src="..." alt="...">
+                    </a>
+                  </div>
+                  <div class="media-body">
+                    <p>AgusL</p>
+                  </div>
+                </div>
+                <div class="media">
+                  <div class="media-left">
+                    <a href="#">
+                      <img class="media-object" src="..." alt="...">
+                    </a>
+                  </div>
+                  <div class="media-body">
+                    <p>AgusO</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        
+        <div class="col-md-8 principalDivElements">
+            <div class="panel panel-info principalPanels">
+              <div class="panel-heading">Conversacion</div>
+              <div class="panel-body">
+                  <dl class="dl-horizontal">
+                      <dt>Agus</dt> <dd>Vuiouio.</dd> <dd>tyutut.</dd> 
+                      <dt  class="smaller-dt">Lucas</dt> <dd class="for-smaller-dt">qweqwe.</dd> 
+                      <dt>Gorra</dt> <dd>asdassd</dd> 
+                  </dl>
+                  <dl>
+                      <dt>Agus</dt> <dd>Vuiouio.</dd> <dd>tyutut.</dd> 
+                      <dt>Lucas</dt> <dd>qweqwe.</dd> 
+                      <dt>Gorra</dt> <dd>asdassd</dd> 
+                  </dl>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">Lucas</span>
+                      <input type="text" class="form-control">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="sendButton">Send</button>
+                      </span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-md-12-->
+            </div><!-- /.row -->
+        </div>
+
+          
+      </div>
     </div>
+    
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalLogin">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Log in</h4>
+          </div>
+          <div class="modal-body">
+            <label for="nombreUsuario" class="control-label">Nombre:</label>
+            <input type="text" class="form-control" id="nombreUsuario">
+            <label for="selectRoom" class="control-label">Message:</label>
+            <select class="form-control" id="selectRoom">
+              <option>main</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="login();">Log in</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     
     <script src="libs/jquery/dist/jquery.min.js"></script>
     <script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="javascripts/index.js"></script>
   </body>
 </html>
