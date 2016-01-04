@@ -19,6 +19,11 @@ dd {
 }
 
 .img-usuario {
-  width: 32px; 
+  width: 28px; 
   height: 32px;  
+}
+
+.user-format{
+  border-radius: 10px;
+  background: #B7B9B5;
 }
