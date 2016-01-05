@@ -42,7 +42,7 @@ app.io.on('connection', function(socket){
 function agregarListenersAlSocketUsuario(usuario){
   usuario.socket.on('nuevo mensaje', function(mensaje){
     console.log("El usuario " + usuario.nombre + " dijo: " + mensaje.data);
-    usuario.socket.broadcast.emit("nuevo mensaje", mensaje.data);
+    /*usuario.socket.broadcast*/app.io.emit("nuevo mensaje", mensaje.data);
   });
 
   usuario.socket.on('disconnect', function () {
