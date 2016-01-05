@@ -26,10 +26,32 @@ app.use('/', routes);
 app.use('/users', users);
 
 /*--------FIN - CONFIGURACION de la app-------------*/
+var usuarios = [];
 
-app.io.on("connection", function(socket){
-  console.log("un usuario se conecto");
-})
+
+app.io.on('connection', function(socket){  
+  console.log("se conecto el usuario: " + socket.handshake.query.nombre);
+  var usuario = {};
+  usuario.socket = socket;
+  usuario.nombre = socket.handshake.query.nombre;
+  usuarios.push(usuario);
+  agregarListenersAlSocketUsuario(usuario);
+  //usuario.socket.broadcast.emit("usuario conectado", socket.nombre);
+});
+
+function agregarListenersAlSocketUsuario(usuario){
+  usuario.socket.on('nuevo mensaje', function(mensaje){
+    console.log("El usuario " + usuario.nombre + " dijo: " + mensaje.data);
+    usuario.socket.broadcast.emit("nuevo mensaje", mensaje.data);
+  });
+
+  usuario.socket.on('disconnect', function () {
+    console.log("Se desconecto el usuario:" + usuario.nombre);
+    usuario.socket.broadcast.emit('user disconnected');//O creo que se puede app.io.emit()
+  });
+
+};
+
 
 module.exports = app;
 
