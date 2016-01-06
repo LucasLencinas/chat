@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var _ = require('underscore-node');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -36,20 +37,31 @@ app.io.on('connection', function(socket){
   usuario.nombre = socket.handshake.query.nombre;
   usuarios.push(usuario);
   agregarListenersAlSocketUsuario(usuario);
-  //usuario.socket.broadcast.emit("usuario conectado", socket.nombre);
+  usuario.socket.broadcast.emit("user connected", {nombre:usuario.nombre, contenido: "Se ha conectado"});
+  socket.emit("room status", buildRoomStatus());
 });
+
+function buildRoomStatus(){
+  var mensajesUsuariosActuales = [];
+  console.log("cantidad de usuarios: " + usuarios.length);
+  usuarios.forEach(function(usuario) {
+    console.log(usuario.nombre + " " + usuario.socket);
+    mensajesUsuariosActuales.push({nombre:usuario.nombre, contenido: "Se ha conectado"});
+  });
+  return {mensajes: mensajesUsuariosActuales}
+}
 
 function agregarListenersAlSocketUsuario(usuario){
   usuario.socket.on('nuevo mensaje', function(mensaje){
-    console.log("El usuario " + usuario.nombre + " dijo: " + mensaje.data);
-    /*usuario.socket.broadcast*/app.io.emit("nuevo mensaje", mensaje.data);
+    console.log("El usuario " + mensaje.nombre + " dijo: " + mensaje.contenido);
+    app.io.emit("nuevo mensaje", {nombre: mensaje.nombre, contenido: mensaje.contenido});
   });
 
   usuario.socket.on('disconnect', function () {
     console.log("Se desconecto el usuario:" + usuario.nombre);
-    usuario.socket.broadcast.emit('user disconnected');//O creo que se puede app.io.emit()
+    usuarios = _.filter(usuarios, function(usuarioDeLaLista){ return usuarioDeLaLista.nombre !== usuario.nombre; });
+    usuario.socket.broadcast.emit('user disconnected', {nombre:usuario.nombre, contenido: "Se ha desconectado..."});
   });
-
 };
 
 

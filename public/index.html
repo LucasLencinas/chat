@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>TropiChat</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="stylesheets/index.css" type="text/css" >
@@ -46,37 +46,8 @@
         <div class="col-md-3 principalDivElements">
             <div class="panel panel-success principalPanels">
               <div class="panel-heading">Participantes</div>
-              <div class="">
-                <div class=" user-format">
-                  <div class="media-left media-middle">
-                    <a href="#">
-                      <img class="media-object img-circle img-usuario " src="http://simpleicon.com/wp-content/uploads/user1.png" alt="...">
-                    </a>
-                  </div>
-                  <div class="media-body media-middle">
-                    Colo
-                  </div>
-                </div>
-                <div class=" user-format">
-                  <div class="media-left media-middle">
-                    <a href="#">
-                      <img class="media-object img-usuario img-circle" src="http://simpleicon.com/wp-content/uploads/user1.png" alt="...">
-                    </a>
-                  </div>
-                  <div class="media-body media-middle">
-                    AgusL
-                  </div>
-                </div>
-                <div class=" user-format">
-                  <div class="media-left media-middle">
-                    <a href="#">
-                      <img class="media-object img-usuario img-usuario" src="http://simpleicon.com/wp-content/uploads/user1.png" alt="...">
-                    </a>
-                  </div>
-                  <div class="media-body media-middle">
-                    AgusO
-                  </div>
-                </div>
+              <div class="" id="participantesDiv">
+                <!--<dt>" + "mensaje.nombre" + "</dt> <dd>" + "mensaje.contenido" + "</dd>-->
               </div>
             </div>
         </div>
@@ -85,18 +56,16 @@
             <div class="panel panel-info principalPanels">
               <div class="panel-heading">Conversacion</div>
               <div class="panel-body">
-                  <dl class="dl-horizontal">
-                      <dt>Agus</dt> <dd>Vuiouio.</dd> <dd>tyutut.</dd> 
-                      <dt  class="smaller-dt">Lucas</dt> <dd class="for-smaller-dt">qweqwe.</dd> 
-                      <dt>Gorra</dt> <dd>asdassd</dd> 
+                  <dl class="dl-horizontal" id="conversacionDiv">
+                      <!--<dt>Agus</dt> <dd>Vuiouio.</dd> <dd>tyutut.</dd> -->
                   </dl>
               </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="input-group">
-                      <span class="input-group-addon" id="basic-addon1">Lucas</span>
-                      <input type="text" class="form-control">
+                      <span class="input-group-addon" id="nombreUsuarioTextBox"></span>
+                      <input type="text" class="form-control" id="messageContent">
                       <span class="input-group-btn">
                         <button class="btn btn-default" type="button" id="sendButton">Send</button>
                       </span>
