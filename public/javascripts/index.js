@@ -5,8 +5,8 @@ var socket;
 $(document).ready(function(){
     $("#modalLogin").modal("show");
     $('#modalLogin').on('shown.bs.modal', function () {
-      $('#nombreUsuario').focus()
-    })
+      $('#nombreUsuario').focus();
+    });
     
      $('#nombreUsuario').keypress(function(e) {
         if ( e.keyCode == 13 ) {  // detect the enter key
