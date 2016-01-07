@@ -22,12 +22,18 @@ $(document).ready(function(){
 });
 
 function login(){
-    nombreUsuario = $("#nombreUsuario").val();
+  nombreUsuario = $("#nombreUsuario").val();
+  if(nombreUsuario.indexOf(' ') >= 0 || nombreUsuario.trim().length === 0){
+    alert("El nombre de usuario no puede tener espacios en el medio o estar vacio. Puto.");
+    $("#nombreUsuario").val("");
+  }
+  else{
     $("#nombreUsuarioTextBox").text(nombreUsuario);
     $('#modalLogin').modal('toggle');
     mostrarContenidoDelRoom();
     $("#messageContent").focus();
     $( "#sendButton" ).click(handlerSendMessage);
+  }
 }
 
 function handlerSendMessage(){
@@ -92,11 +98,14 @@ function mostrarNuevoUsuario(nombreNuevoUsuario){
 function appendMessage(mensaje){//{nombre,contenido}
   var ddcontent = "";
   //var maxlength = 70;//caracteres
-  var splitContent = mensaje.contenido.match(/.{1,70}/g);
+  var splitContent = mensaje.contenido.match(/.{1,80}/g);
   for (var pos = 0; pos < splitContent.length; pos++ ) {
     ddcontent += "<dd>" + splitContent[pos] + "</dd>";
   }
-  $("#conversacionDiv").append("<dt>" + mensaje.nombre + "</dt>" + ddcontent);
+  if($( "dt:last" ).text() == mensaje.nombre)
+    $("#conversacionDiv").append(ddcontent);
+  else
+    $("#conversacionDiv").append("<dt>" + mensaje.nombre + "</dt>" + ddcontent);
   $( "dt:last" ).css({ color: mensaje.color});
   $( "dt:last" ).nextAll().css({ color: mensaje.color});
    
