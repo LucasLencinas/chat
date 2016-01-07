@@ -23,8 +23,8 @@ $(document).ready(function(){
 
 function login(){
   nombreUsuario = $("#nombreUsuario").val();
-  if(nombreUsuario.indexOf(' ') >= 0 || nombreUsuario.trim().length === 0){
-    alert("El nombre de usuario no puede tener espacios en el medio o estar vacio. Puto.");
+  if(nombreUsuario.indexOf(' ') >= 0 || nombreUsuario.trim().length === 0 || nombreUsuario.trim().length > 26){
+    alert("El nombre de usuario no puede tener espacios ni tener mas de 25 caracteres. Puto.");
     $("#nombreUsuario").val("");
   }
   else{
