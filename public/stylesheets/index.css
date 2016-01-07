@@ -10,13 +10,21 @@ dd {
   margin-left:25% !important;
 }
 
+.nombre-participante{
+  max-width: 200px !important;
+}
+
 #conversacionDiv{
-    overflow: auto; 
-    max-height: 325px;
+  overflow: auto; 
+  max-height: 325px;
+}
+
+#nombreUsuarioTextBox{
+  max-width: 200px !important;
 }
 
 .principalPanels{
-    height: 400px;
+  height: 400px;
 }
 
 .img-usuario {

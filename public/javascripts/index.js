@@ -74,7 +74,7 @@ function borrarUsuarioDesconectado(nombreUsuarioDesconectado){
 }
 
 function mostrarNuevoUsuario(nombreNuevoUsuario){
-  $("#participantesDiv").append("<div class=\" user-format\" id=\"user" + nombreNuevoUsuario  + "\"><div class=\"media-left media-middle\"><a href=\"#\"><img class=\"media-object img-usuario img-usuario\" src=\"http://simpleicon.com/wp-content/uploads/user1.png\" alt=\"...\"></a></div><div class=\"media-body media-middle\">" + nombreNuevoUsuario + "</div></div>");
+  $("#participantesDiv").append("<div class=\" user-format\" id=\"user" + nombreNuevoUsuario  + "\"><div class=\"media-left media-middle\"><a href=\"#\"><img class=\"media-object img-usuario img-usuario\" src=\"http://simpleicon.com/wp-content/uploads/user1.png\" alt=\"...\"></a></div><div class=\"media-body media-middle nombre-participante\">" + nombreNuevoUsuario + "</div></div>");
   /*
   <div class=" user-format">
     <div class="media-left media-middle">
