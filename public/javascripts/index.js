@@ -4,6 +4,21 @@ var socket;
       
 $(document).ready(function(){
     $("#modalLogin").modal("show");
+    $('#modalLogin').on('shown.bs.modal', function () {
+      $('#nombreUsuario').focus()
+    })
+    
+     $('#nombreUsuario').keypress(function(e) {
+        if ( e.keyCode == 13 ) {  // detect the enter key
+            $('#loginButton').click(); // fire a sample click,  you can do anything
+        }
+    });
+    
+     $('#messageContent').keypress(function(e) {
+        if ( e.keyCode == 13 ) {  // detect the enter key
+            $('#sendButton').click(); // fire a sample click,  you can do anything
+        }
+    });
 });
 
 function login(){
@@ -11,6 +26,7 @@ function login(){
     $("#nombreUsuarioTextBox").text(nombreUsuario);
     $('#modalLogin').modal('toggle');
     mostrarContenidoDelRoom();
+    $("#messageContent").focus();
     $( "#sendButton" ).click(handlerSendMessage);
 }
 
@@ -18,7 +34,7 @@ function handlerSendMessage(){
   if($("#messageContent").val().trim() !== ""){
     console.log('enviando mensaje...' + $("#messageContent").val());
     socket.emit('nuevo mensaje', {nombre:nombreUsuario, contenido: $("#messageContent").val().trim() });
-    //appendMessage({nombre:nombreUsuario, mensaje:$("#messageContent").val().trim()});
+    $("#messageContent").val("");
   }
   
 }
