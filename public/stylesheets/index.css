@@ -10,6 +10,14 @@ dd {
   margin-left:25% !important;
 }
 
+.img-conversacion{
+  height: auto; 
+  width: auto; 
+  max-width: 200px; 
+  max-height: 200px;
+  
+}
+
 .nombre-participante{
   max-width: 200px !important;
 }

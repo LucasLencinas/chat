@@ -97,18 +97,28 @@ function mostrarNuevoUsuario(nombreNuevoUsuario){
 
 function appendMessage(mensaje){//{nombre,contenido}
   var ddcontent = "";
+  var splitContent;
   //var maxlength = 70;//caracteres
-  var splitContent = mensaje.contenido.match(/.{1,80}/g);
-  for (var pos = 0; pos < splitContent.length; pos++ ) {
-    ddcontent += "<dd>" + splitContent[pos] + "</dd>";
-  }
-  if($( "dt:last" ).text() == mensaje.nombre)
-    $("#conversacionDiv").append(ddcontent);
-  else
+  /*Para poner imagenes*/
+  var patternImg = /([-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?(?:jpg|jpeg|gif|png))/gi;
+  if(patternImg.test(mensaje.contenido)){
+    var replacement = '<a href="$1" target="_blank"><img class="img-conversacion" src="$1"  /></a><br />';
+    mensaje.contenido = mensaje.contenido.replace(patternImg, replacement);
+    ddcontent += "<dd>" + mensaje.contenido + "</dd>";
     $("#conversacionDiv").append("<dt>" + mensaje.nombre + "</dt>" + ddcontent);
+  }
+  else{
+    splitContent = mensaje.contenido.match(/.{1,80}/g);
+    for (var pos = 0; pos < splitContent.length; pos++ ) {
+      ddcontent += "<dd>" + splitContent[pos] + "</dd>";
+    }
+    if($( "dt:last" ).text() == mensaje.nombre)
+      $("#conversacionDiv").append(ddcontent);
+    else
+      $("#conversacionDiv").append("<dt>" + mensaje.nombre + "</dt>" + ddcontent);
+  }
   $( "dt:last" ).css({ color: mensaje.color});
   $( "dt:last" ).nextAll().css({ color: mensaje.color});
-   
   $("#conversacionDiv").animate({
         //scrollTop: $("#conversacionDiv").height()
         scrollTop: $('#conversacionDiv')[0].scrollHeight}, "fast");
