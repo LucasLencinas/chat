@@ -97,6 +97,9 @@ function appendMessage(mensaje){//{nombre,contenido}
     ddcontent += "<dd>" + splitContent[pos] + "</dd>";
   }
   $("#conversacionDiv").append("<dt>" + mensaje.nombre + "</dt>" + ddcontent);
+  $( "dt:last" ).css({ color: mensaje.color});
+  $( "dt:last" ).nextAll().css({ color: mensaje.color});
+   
   $("#conversacionDiv").animate({
         //scrollTop: $("#conversacionDiv").height()
         scrollTop: $('#conversacionDiv')[0].scrollHeight}, "fast");
