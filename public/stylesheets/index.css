@@ -3,11 +3,11 @@ body {
 }
 
 dt {
-  width: 70px !important;
+  width: 23% !important;
 }
 
 dd {
-  margin-left:80px !important;
+  margin-left:25% !important;
 }
 
 #conversacionDiv{
