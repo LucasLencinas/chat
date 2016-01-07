@@ -10,8 +10,9 @@ dd {
   margin-left:80px !important;
 }
 
-#principalRow{
-    /*border: 2px solid;*/
+#conversacionDiv{
+    overflow: auto; 
+    max-height: 350px;
 }
 
 .principalPanels{
