@@ -90,5 +90,11 @@ function mostrarNuevoUsuario(nombreNuevoUsuario){
 }
 
 function appendMessage(mensaje){//{nombre,contenido}
-  $("#conversacionDiv").append("<dt>" + mensaje.nombre + "</dt> <dd>" + mensaje.contenido + "</dd>");
+  var ddcontent = "";
+  //var maxlength = 70;//caracteres
+  var splitContent = mensaje.contenido.match(/.{1,70}/g);
+  for (var pos = 0; pos < splitContent.length; pos++ ) {
+    ddcontent += "<dd>" + splitContent[pos] + "</dd>";
+  }
+  $("#conversacionDiv").append("<dt>" + mensaje.nombre + "</dt>" + ddcontent);
 }
