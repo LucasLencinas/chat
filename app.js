@@ -12,6 +12,9 @@ var users = require('./routes/users');
 var app = express();
 app.io = require("socket.io")();
 
+var dl = require('./public/libs/delivery/lib/delivery.server'),
+    fs  = require('fs');
+
 /*-------------CONFIGURACION de la app-------------*/
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -47,6 +50,7 @@ app.io.on('connection', function(socket){
   usuario.socket = socket;
   usuario.nombre = socket.handshake.query.nombre;
   usuario.color = asignarColorAUsuario();
+  usuario.delivery = dl.listen(usuario.socket);
   usuarios.push(usuario);
   agregarListenersAlSocketUsuario(usuario);
   usuario.socket.broadcast.emit("user connected", {nombre:usuario.nombre, contenido: "Se ha conectado", color:usuario.color});
@@ -79,6 +83,42 @@ function agregarListenersAlSocketUsuario(usuario){
     usuarios = _.filter(usuarios, function(usuarioDeLaLista){ return usuarioDeLaLista.nombre !== usuario.nombre; });
     usuario.socket.broadcast.emit('user disconnected', {nombre:usuario.nombre, contenido: "Se ha desconectado...", color:usuario.color});
   });
+  
+  
+  /*For File Uploading*/
+  usuario.delivery.on('receive.success',function(file){
+    //app.io.emit('image', { image: true, buffer: file.buffer.toString('base64') });
+    var parametros = file.params;
+    fs.writeFile('./public/images/'+file.name,file.buffer, function(err){
+      if(err){
+        console.log('File could not be saved.');
+      }else{
+        console.log('File saved.');
+        /*
+        for (var i = 0; i < usuarios.length; i++ ) {
+          usuarios[i].delivery.send({
+            name: file.name,
+            path : './public/images/' + file.name,
+            params: {nombre:usuario.nombre, color:usuario.color}
+          });
+          console.log("Se lo envie al usuario " + usuarios[i].nombre + "con el delivery " + usuarios[i].delivery );
+        }
+        */
+        /*HACER UN EMIT QUE SOLO CONTENGA LA DIRECCION DEL ARCHIVO GUARDADO, 
+        ALGO DEL ESTILO /public/images/suarez.jpg
+        */
+        app.io.emit("image", {nombre: usuario.nombre, image:"images/" +file.name, color:usuario.color});
+        
+        
+        console.log("Recibi y broadcastee la image: " + file.name)
+      };//else
+    });//write file
+  });
+  
+  usuario.delivery.on('send.success',function(file){
+    console.log('File successfully sent to client!');
+  });
+
 };
 
 

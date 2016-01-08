@@ -72,10 +72,19 @@
                     </div><!-- /input-group -->
                 </div><!-- /.col-md-12-->
             </div><!-- /.row -->
+            
+            <div class="row">
+              <div class="col-md-12">
+                <form>
+                  <div class="form-group">
+                    <label for="inputFile">Seleccionar Imagen:</label>
+                    <input type="file" id="inputFile">
+                  </div>
+                  <button type="submit" class="btn btn-default" id="imageButtonSend">Enviar</button>
+                </form>
+              </div>
+            </div><!-- /.row -->
         </div>
-
-          
-      </div>
     </div>
     
     <div class="modal fade" tabindex="-1" role="dialog" id="modalLogin"  data-backdrop="static" data-keyboard="false">
@@ -102,6 +111,7 @@
     <script src="libs/jquery/dist/jquery.min.js"></script>
     <script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>  
+    <script src="/libs/delivery/lib/client/delivery.js"></script>
     <script type="text/javascript" src="javascripts/index.js"></script>
   </body>
 </html>

@@ -73,6 +73,53 @@ function mostrarContenidoDelRoom(){
       appendMessage(mensaje);
       console.log(mensaje);
     });
+    
+    socket.on('image', function (mensaje) {//Mensaje --> nombre,contenido
+      appendImage(mensaje);
+      console.log(mensaje);
+    });
+    
+    var delivery = new Delivery(socket);
+ 
+    delivery.on('delivery.connect',function(delivery){
+      $("#imageButtonSend").click(function(evt){
+        var file = $("#inputFile")[0].files[0];
+        var extraParams = {nombre:nombreUsuario, contenido: "He enviado una imagen" };
+        delivery.send(file, extraParams);
+        evt.preventDefault();
+      });
+      console.log("ya me conecte con delivery");
+    });
+ 
+
+    delivery.on('send.success',function(fileUID){
+      console.log("file was successfully sent.");
+    });
+/*    
+    delivery.on('receive.start',function(fileUID){
+      console.log('receiving a file!');
+    });
+ 
+    delivery.on('receive.success',function(file){
+      var parametros = file.params;
+      console.log('ya recibi el archivo');
+      if (file.isImage()) {
+        appendImage(file);
+        //$('img').attr('src', file.dataURL());
+      };
+    });
+*/
+}
+
+function appendImage(mensaje){
+  /*app.io.emit("image", {nombre, image:"/public/images/" +file.name, color);*/
+  var ddcontent = "<dd><img class=\"img-conversacion\" src=\"" + mensaje.image + "\" /></a><br /></dd>";
+  $("#conversacionDiv").append("<dt>" + mensaje.nombre + "</dt>" + ddcontent);
+  $( "dt:last" ).css({ color: mensaje.color});
+  $( "dt:last" ).nextAll().css({ color: mensaje.color});
+  $("#conversacionDiv").animate({
+        //scrollTop: $("#conversacionDiv").height()
+        scrollTop: $('#conversacionDiv')[0].scrollHeight}, "fast");
 }
 
 function borrarUsuarioDesconectado(nombreUsuarioDesconectado){
@@ -95,7 +142,7 @@ function mostrarNuevoUsuario(nombreNuevoUsuario){
   */
 }
 
-function appendMessage(mensaje){//{nombre,contenido}
+function appendMessage(mensaje){ //{nombre,contenido}
   var ddcontent = "";
   var splitContent;
   //var maxlength = 70;//caracteres
@@ -123,3 +170,5 @@ function appendMessage(mensaje){//{nombre,contenido}
         //scrollTop: $("#conversacionDiv").height()
         scrollTop: $('#conversacionDiv')[0].scrollHeight}, "fast");
 }
+
+

@@ -1,0 +1,5 @@
+# Images
+/public/images/*
+
+#logs
+*.log
