@@ -1,5 +1,18 @@
+html{
+  height:100%;
+}
+
 body {
   padding-top: 50px;
+  height:100%;
+}
+
+.whole-height{
+  height:100%;
+}
+
+.whole-width{
+  width:100% !important;
 }
 
 dt {
@@ -18,6 +31,11 @@ dd {
   
 }
 
+#principalRow{
+  height:88%;
+  
+}
+
 .nombre-participante{
   max-width: 200px !important;
 }
@@ -31,8 +49,21 @@ dd {
   max-width: 200px !important;
 }
 
-.principalPanels{
-  height: 400px;
+
+.participantesPanel{
+  height: 100%;
+}
+
+.conversationPanel{
+  height: 75%;
+}
+
+.inner-conversation-panel{
+  height:90%;
+}
+
+.principalDivElements{
+  height: 100%;
 }
 
 .img-usuario {
