@@ -31,25 +31,13 @@ app.use('/users', users);
 
 /*--------FIN - CONFIGURACION de la app-------------*/
 var usuarios = [];
-var colours = [
-  "rgba(255, 21, 3, 0.7)",
-  "rgba(255, 181, 3, 0.7)",
-  "rgba(159, 157, 24, 0.7)",
-  "rgba(3, 255, 15, 0.7)",
-  "rgba(3, 255, 255, 0.7)",
-  "rgba(3, 104, 255, 0.7)",
-  "rgba(62, 3, 255, 0.7)",
-  "rgba(222, 3, 255, 0.7)",
-  "rgba(255, 3, 110, 0.7)"
-  ];
-var actualColour = 0;
 
 app.io.on('connection', function(socket){  
   console.log("se conecto el usuario: " + socket.handshake.query.nombre);
   var usuario = {};
   usuario.socket = socket;
   usuario.nombre = socket.handshake.query.nombre;
-  usuario.color = asignarColorAUsuario();
+  usuario.color = socket.handshake.query.color;
   usuario.delivery = dl.listen(usuario.socket);
   usuarios.push(usuario);
   agregarListenersAlSocketUsuario(usuario);
@@ -57,10 +45,6 @@ app.io.on('connection', function(socket){
   socket.emit("room status", buildRoomStatus());
 });
 
-function asignarColorAUsuario(){
-  (actualColour + 1< colours.length)? actualColour++ : actualColour = 0;
-  return colours[actualColour];
-}
 
 function buildRoomStatus(){
   var mensajesUsuariosActuales = [];
@@ -94,21 +78,8 @@ function agregarListenersAlSocketUsuario(usuario){
         console.log('File could not be saved.');
       }else{
         console.log('File saved.');
-        /*
-        for (var i = 0; i < usuarios.length; i++ ) {
-          usuarios[i].delivery.send({
-            name: file.name,
-            path : './public/images/' + file.name,
-            params: {nombre:usuario.nombre, color:usuario.color}
-          });
-          console.log("Se lo envie al usuario " + usuarios[i].nombre + "con el delivery " + usuarios[i].delivery );
-        }
-        */
-        /*HACER UN EMIT QUE SOLO CONTENGA LA DIRECCION DEL ARCHIVO GUARDADO, 
-        ALGO DEL ESTILO /public/images/suarez.jpg
-        */
         app.io.emit("image", {nombre: usuario.nombre, image:"images/" +file.name, color:usuario.color});
-        
+        /*Deberia borrar el archivo, una vez que se envio*/
         
         console.log("Recibi y broadcastee la image: " + file.name)
       };//else

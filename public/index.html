@@ -10,6 +10,7 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="stylesheets/index.css" type="text/css" >
     <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+    <link href="libs/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet">
     
   </head>
   <body>
@@ -96,10 +97,13 @@
           <div class="modal-body">
             <label for="nombreUsuario" class="control-label">Nombre:</label>
             <input type="text" class="form-control" id="nombreUsuario">
-            <label for="selectRoom" class="control-label">Message:</label>
+            <label for="selectRoom" class="control-label">Room:</label>
             <select class="form-control" id="selectRoom">
               <option>main</option>
             </select>
+            <!-- COLOR PICKER--> 
+            <label for="colorUsuario" class="control-label">Color:</label>
+            <input type="text" value="" id="colorUsuarioInput" class="form-control demo2" />
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" id="loginButton" onclick="login();">Log in</button>
@@ -113,5 +117,6 @@
     <script src="/socket.io/socket.io.js"></script>  
     <script src="/libs/delivery/lib/client/delivery.js"></script>
     <script type="text/javascript" src="javascripts/index.js"></script>
+    <script src="libs/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js"></script>
   </body>
 </html>

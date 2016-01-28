@@ -6,6 +6,7 @@ $(document).ready(function(){
     $("#modalLogin").modal("show");
     $('#modalLogin').on('shown.bs.modal', function () {
       $('#nombreUsuario').focus();
+      $('.demo2').colorpicker({format:"rgba", color: "rgba(0,0,255,1)"});
     });
     
      $('#nombreUsuario').keypress(function(e) {
@@ -46,7 +47,7 @@ function handlerSendMessage(){
 }
 
 function mostrarContenidoDelRoom(){
-    socket = io("", { query: 'nombre=' + nombreUsuario });
+    socket = io("", { query: 'nombre=' + nombreUsuario + '&color=' + $('.demo2').colorpicker('getValue')} );
     
     socket.on('room status', function (data) {//Mensaje --> nombre,contenido
       console.log("data:" + data.mensajes);
