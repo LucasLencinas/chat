@@ -7,6 +7,10 @@ body {
   height:100%;
 }
 
+.clickable{
+  cursor: pointer;
+}
+
 .whole-height{
   height:100%;
 }

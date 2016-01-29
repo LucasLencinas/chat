@@ -47,6 +47,39 @@ function handlerSendMessage(){
 }
 
 function mostrarContenidoDelRoom(){
+  
+    $("#participantesToggler").click(function(){
+      if ($("#participantesToggler").hasClass('glyphicon-chevron-left')){
+        /*achicarlo - colapsarlo*/
+        /*on complete - esconder los nombres y titulo*/
+        $("#headingParticipantesSpan").text("P");
+        $(".nombre-participante").toggle();
+        
+        $( "#left-div" ).animate({
+          width: "8%"
+        },function(){
+          $( "#right-div" ).animate({
+            width: "92%"
+          });
+        });
+      }
+      else{
+        $( "#right-div" ).animate({
+          width: "75%"
+        },function() {
+          $( "#left-div" ).animate({
+          width: "25%"
+          },function() {
+            /*on complete - mostrar los nombres y titulo*/
+          $("#headingParticipantesSpan").text("Participantes");
+          $(".nombre-participante").toggle();
+          });
+        });
+      }
+      $("#participantesToggler").toggleClass('glyphicon-chevron-left');
+      $("#participantesToggler").toggleClass('glyphicon-chevron-right');
+    });
+  
     socket = io("", { query: 'nombre=' + nombreUsuario + '&color=' + $('.demo2').colorpicker('getValue')} );
     
     socket.on('room status', function (data) {//Mensaje --> nombre,contenido
