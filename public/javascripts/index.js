@@ -108,41 +108,28 @@ function mostrarContenidoDelRoom(){
       console.log(mensaje);
     });
     
-    socket.on('image', function (mensaje) {//Mensaje --> nombre,contenido
+    socket.on('user image', function (mensaje) {//Mensaje --> nombre,contenido
       appendImage(mensaje);
       console.log(mensaje);
     });
-    
-    var delivery = new Delivery(socket);
  
-    delivery.on('delivery.connect',function(delivery){
-      $("#imageButtonSend").click(function(evt){
-        var file = $("#inputFile")[0].files[0];
-        var extraParams = {nombre:nombreUsuario, contenido: "He enviado una imagen" };
-        delivery.send(file, extraParams);
-        evt.preventDefault();
-      });
-      console.log("ya me conecte con delivery");
+    $('#imagefile').bind('change', function(e){
+      
+      var file    = document.querySelector('input[type=file]').files[0];
+      var reader  = new FileReader();
+      reader.addEventListener("load", function () {
+        console.log("La imagen ya se ha cargado.");
+        console.log("Contenido de reader.result = " + reader.result);
+        //$("#preview").attr('src',reader.result);
+        socket.emit('user image', {nombre: nombreUsuario, contenido: "Ha enviado una imagen" , image: reader.result });
+        $("#imagefile").val('');
+      //  socket.emit('echo', {nombre: nombreUsuario, contenido: "Ha enviado una imagen" , image: reader.result });
+      }, false);
+      
+      if (file) {
+        reader.readAsDataURL(file);
+      }
     });
- 
-
-    delivery.on('send.success',function(fileUID){
-      console.log("file was successfully sent.");
-    });
-/*    
-    delivery.on('receive.start',function(fileUID){
-      console.log('receiving a file!');
-    });
- 
-    delivery.on('receive.success',function(file){
-      var parametros = file.params;
-      console.log('ya recibi el archivo');
-      if (file.isImage()) {
-        appendImage(file);
-        //$('img').attr('src', file.dataURL());
-      };
-    });
-*/
 }
 
 function appendImage(mensaje){

@@ -61,45 +61,37 @@ function agregarListenersAlSocketUsuario(usuario){
     console.log("El usuario " + mensaje.nombre + " dijo: " + mensaje.contenido);
     app.io.emit("nuevo mensaje", {nombre: mensaje.nombre, contenido: mensaje.contenido, color:usuario.color});
   });
-
+  
+  /*
+  usuario.socket.on('echo', function(mensaje){
+    console.log("Echo del usuario " + mensaje.nombre);
+    app.io.emit("user image", {nombre: mensaje.nombre, color:usuario.color, image: mensaje.image});
+    
+  });
+*/
   usuario.socket.on('disconnect', function () {
     console.log("Se desconecto el usuario:" + usuario.nombre);
     usuarios = _.filter(usuarios, function(usuarioDeLaLista){ return usuarioDeLaLista.nombre !== usuario.nombre; });
     usuario.socket.broadcast.emit('user disconnected', {nombre:usuario.nombre, contenido: "Se ha desconectado...", color:usuario.color});
   });
   
-  
-  /*For File Uploading*/
-  usuario.delivery.on('receive.success',function(file){
-    //app.io.emit('image', { image: true, buffer: file.buffer.toString('base64') });
-    var parametros = file.params;
-    fs.writeFile('./public/images/'+file.name,file.buffer, function(err){
-      if(err){
-        console.log('File could not be saved.');
-      }else{
-        console.log('File saved.');
-        app.io.emit("image", {nombre: usuario.nombre, image:"images/" +file.name, color:usuario.color});
-        /*Deberia borrar el archivo, una vez que se envio*/
-        
-        console.log("Recibi y broadcastee la image: " + file.name)
-      };//else
-    });//write file
+  usuario.socket.on('eliminar usuario', function(mensaje){
+    console.log("El usuario " + usuario.nombre + " ha eliminado al usuario " + mensaje.nombreEliminado);
+    var usuarioEliminado = _.find(usuarios, function(user){ return user.nombre === mensaje.nombreEliminado; });
+    usuarioEliminado.socket.disconnect();
+    usuarios = _.filter(usuarios, function(user){ return user.nombre !== usuario.nombre; });
+    app.io.emit("nuevo mensaje", {nombre: mensaje.nombre, contenido: usuario.nombre + " ha eliminado a " + mensaje.nombreEliminado, color:usuario.color});
   });
   
-  usuario.delivery.on('send.success',function(file){
-    console.log('File successfully sent to client!');
+  usuario.socket.on('user image', function (msg) {
+    console.log(msg.nombre + " " + msg.contenido);
+    app.io.emit("user image", {nombre: msg.nombre, color:usuario.color, image: msg.image});
   });
 
 };
 
 
 module.exports = app;
-
-
-
-
-
-
 
 /*
 
